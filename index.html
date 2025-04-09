@@ -1,116 +1,143 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Silly Lalli</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happiest Birthday Silly Lalli 🥳</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-      overflow: hidden;
-      color: white;
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      background: linear-gradient(to top, #0d0d0d, #1a1a2e);
+      color: white;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent url('https://i.ibb.co/5Rbs88R/stars-bg.png') repeat;
+      z-index: 0;
+      animation: starMove 60s linear infinite;
+    }
+
+    @keyframes starMove {
+      from { background-position: 0 0; }
+      to { background-position: 10000px 10000px; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
       text-align: center;
-    }h1 {
-  font-size: 2em;
-  margin-bottom: 0.2em;
-}
+    }
 
-p {
-  font-size: 1.2em;
-  margin: 0.3em 0;
-}
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
 
-#surpriseBtn, #continueBtn {
-  margin-top: 1em;
-  padding: 0.7em 2em;
-  font-size: 1em;
-  background-color: #ff69b4;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  transition: background-color 0.3s ease;
-}
+    .button {
+      margin-top: 2rem;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      background-color: #ff6f91;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-#surpriseBtn:hover, #continueBtn:hover {
-  background-color: #ff85c1;
-}
+    .button:hover {
+      background-color: #ff4d6d;
+    }
 
-iframe {
-  margin-top: 20px;
-  display: none;
-  border-radius: 12px;
-}
+    .spotify-container {
+      display: none;
+      margin-top: 2rem;
+    }
 
-#quote {
-  display: none;
-  font-style: italic;
-  margin-top: 1em;
-}
+    .quote {
+      margin-top: 2rem;
+      font-style: italic;
+      font-size: 1rem;
+      opacity: 0.8;
+    }
 
-.note, .star {
-  position: absolute;
-  animation: float 10s infinite linear;
-  opacity: 0.5;
-  font-size: 1.5em;
-}
+    .music-notes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
 
-@keyframes float {
-  0% {
-    transform: translateY(100vh);
-  }
-  100% {
-    transform: translateY(-10vh);
-  }
-}
+    .note {
+      position: absolute;
+      color: white;
+      font-size: 20px;
+      animation: float 10s linear infinite;
+    }
 
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Happiest Birthday, Silly Lalli </h1>
-  <p>May all your wishes come true.</p>
-  <p>May you get all the happiness </p>
-  <button id="surpriseBtn">Surprise</button>
-  <iframe id="playlist" style="width:80%; height:152px;" 
-    src="https://open.spotify.com/embed/playlist/6MggYZZhg0PcW4KmyqJpOT?utm_source=generator" 
-    frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-    loading="lazy"></iframe>
-  <button id="continueBtn" style="display:none;">Continue</button>
-  <div id="quote">"Like some cosmic signal, there were many coincidences that connect us like some invisible string pulling us closer."</div>  <script>
-    const surpriseBtn = document.getElementById('surpriseBtn');
-    const continueBtn = document.getElementById('continueBtn');
-    const playlist = document.getElementById('playlist');
-    const quote = document.getElementById('quote');
+  <div class="stars"></div>
+  <div class="music-notes" id="notes-container"></div>
 
-    surpriseBtn.onclick = () => {
-      playlist.style.display = 'block';
-      continueBtn.style.display = 'inline-block';
-      surpriseBtn.style.display = 'none';
-    };
+  <div class="container">
+    <h1>Happiest birthday silly lalli 🥳</h1>
+    <p>May all your wishes become true<br/>May you get all the happiness 🤠</p>
+    
+    <button class="button" onclick="showPlaylist()">Surprise</button>
 
-    continueBtn.onclick = () => {
-      quote.style.display = 'block';
-      continueBtn.style.display = 'none';
-    };
+    <div class="spotify-container" id="spotifyContainer">
+      <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/playlist/6MggYZZhg0PcW4KmyqJpOT?utm_source=generator" 
+        width="100%" height="380" frameBorder="0" allowfullscreen="" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy">
+      </iframe>
+      <p class="quote">"Like some cosmic signal there were many coincidences that connect us like some invisible string pulling us closer"</p>
+    </div>
+  </div>
 
-    // Floating notes and stars
-    const symbols = ['', '', '', '', ''];
-    for (let i = 0; i < 30; i++) {
-      const span = document.createElement('span');
-      span.className = Math.random() > 0.5 ? 'note' : 'star';
-      span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      span.style.left = Math.random() * 100 + 'vw';
-      span.style.top = Math.random() * 100 + 'vh';
-      span.style.animationDuration = (5 + Math.random() * 5) + 's';
-      document.body.appendChild(span);
+  <script>
+    function showPlaylist() {
+      document.getElementById('spotifyContainer').style.display = 'block';
     }
-  </script></body>
+
+    // Generate random music notes
+    const container = document.getElementById("notes-container");
+    const notes = ['♪', '♫', '♩', '♬'];
+
+    for (let i = 0; i < 30; i++) {
+      const note = document.createElement('div');
+      note.className = 'note';
+      note.innerText = notes[Math.floor(Math.random() * notes.length)];
+      note.style.left = Math.random() * 100 + 'vw';
+      note.style.animationDuration = (5 + Math.random() * 5) + 's';
+      note.style.fontSize = (16 + Math.random() * 16) + 'px';
+      container.appendChild(note);
+    }
+  </script>
+</body>
 </html>
